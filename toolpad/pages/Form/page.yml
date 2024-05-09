@@ -1,0 +1,50 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/mui/mui-toolpad/v0.1.54/docs/schemas/v1/definitions.json#properties/Page
+
+apiVersion: v1
+kind: page
+spec:
+  title: page1
+  content:
+    - component: Form
+      name: form
+      layout:
+        columnSize: 1
+      props:
+        formControlsAlign: center
+        hasResetButton: true
+        formControlsFullWidth: false
+        onSubmit:
+          $$navigationAction:
+            page: Thanks
+            parameters:
+              name:
+                $$jsExpression: textField.value
+              birthday:
+                $$jsExpression: datePicker.value
+      children:
+        - component: TextField
+          name: textField
+          props:
+            label: First Name
+            password: false
+            minLength: 1
+            maxLength: 20
+            isRequired: true
+            defaultValue:
+              $$jsExpression: page.parameters.name
+        - component: Checkbox
+          name: checkbox
+          props:
+            label: Add Birthday
+            mode: switch
+        - component: DatePicker
+          name: datePicker
+          props:
+            disabled:
+              $$jsExpression: "!checkbox.checked"
+  display: shell
+  authorization:
+    allowAll: true
+  parameters:
+    - name: name
+      value: ""

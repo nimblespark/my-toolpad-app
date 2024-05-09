@@ -1,0 +1,38 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/mui/mui-toolpad/v0.1.54/docs/schemas/v1/definitions.json#properties/Page
+
+apiVersion: v1
+kind: page
+spec:
+  alias:
+    - 27_FzDd
+  title: Default page
+  parameters:
+    - name: value
+      value: "1"
+  content:
+    - component: Tabs
+      name: tabs
+    - component: Paper
+      name: paper
+      children:
+        - component: Text
+          name: text
+          props:
+            value:
+              $$jsExpression: page.parameters.value
+            mode: text
+            loading: false
+    - component: Button
+      name: button
+      props:
+        content: Increment
+        onClick:
+          $$jsExpressionAction: page.parameters.value++
+    - component: Text
+      name: text1
+      props:
+        value:
+          $$jsExpression: '"The current tab you are on is " + tabs.value'
+    - component: codeComponent.MyComponent
+      name: myComponent
+  display: shell
